@@ -12,7 +12,7 @@ export default {
             { hid: 'description', name: 'description', content: 'フロントエンジニア櫻井のポートフォリオサイトです' }
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: 'icon', type: 'image/x-icon', href: '/my-portfolio_v2/favicon.ico' },
         ]
     },
 
@@ -59,6 +59,6 @@ export default {
     },
 
     router: {
-        base: '/'
+        base: '/my-portfolio_v2/'
     }
 }
