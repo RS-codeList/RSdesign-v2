@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="about">
     <h2 data-aos="fade-up">About</h2>
     <ul>
       <li v-for="item in items" :key="item.id">
