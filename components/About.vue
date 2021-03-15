@@ -1,15 +1,24 @@
 <template>
-  <section id="about">
-    <h2 data-aos="fade-up">About</h2>
-    <ul>
-      <li v-for="item in items" :key="item.id">
+  <section id="about" class="c-sectionStyle about">
+    <h2 data-aos="fade-up" class="about__title">About</h2>
+    <ul v-if="windowWidth >= 600" class="about__list">
+      <li v-for="item in items" :key="item.id" class="about__list__item">
         <figure :data-aos="item.aos">
           <img :src="item.pic" :alt="item.alt" />
         </figure>
         <dl data-aos="fade-up">
           <dt>{{ item.heading }}</dt>
-          <dd>{{ item.description }}</dd>
+          <dd v-html="item.description"></dd>
         </dl>
+      </li>
+    </ul>
+    <ul v-else class="about__list">
+      <li v-for="item in items" :key="item.id" class="about__list__item">
+        <h3 data-aos="fade-up">{{ item.heading }}</h3>
+        <figure data-aos="fade-up">
+          <img :src="item.pic" :alt="item.alt" />
+        </figure>
+        <p data-aos="fade-up" v-html="item.description"></p>
       </li>
     </ul>
   </section>
@@ -20,100 +29,111 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
+      windowWidth:0,
       items: [
         {
           pic: "still/coding.jpg",
           alt: "CODING",
           aos: "flip-left",
           heading: "CODING",
-          description: "Vue.js/JavaScript/HTML/CSSなどが使えます。",
+          description: "Vue.js/JavaScript/HTML/CSS<br class='sp_on'>などが使えます。",
         },
         {
           pic: "still/swim.jpg",
           alt: "SWIMMING",
           aos: "flip-up",
           heading: "SWIMMING",
-          description: "週一ペースで通ってます。クロールが得意です。",
+          description: "週一ペースで通ってます。<br class='sp_on'>クロールが得意です。",
         },
         {
           pic: "still/bike.jpg",
           alt: "TOURING",
           aos: "flip-right",
           heading: "TOURING",
-          description: "z900rs cafeのライムグリーンに乗ってます。",
+          description: "z900rs cafeのライムグリーン<br class='sp_on'>に乗ってます。",
         },
       ],
     };
+  },
+  methods:{
+    discriminationMedia(){
+      this.windowWidth = window.innerWidth;
+    },
+  },
+  mounted(){
+    this.discriminationMedia();
+    window.addEventListener('resize', this.discriminationMedia);
   },
 });
 </script>
 
 <style lang="scss" scoped>
-@import "~assets/scss/_media.scss";
-section {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column wrap;
-  @include media(md) {
-    width: 1000px;
-    margin: 0 auto;
-  }
-}
-h2 {
-  margin: 64px auto;
-  font-size: min(14vw, 3rem);
-  color: white;
-  @include media(md){
-    font-size: 36px;
-  }
-}
-ul{
-  padding: 0 12px;
-  @include media(md){
-    padding: 0;
-  }
-}
-li {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  @include media(md){
-    flex-flow: row wrap;
-  }
-  &:nth-child(2) {
+.about{
+  height: fit-content;
+  min-height: 100vh;
+  &__title{
+    margin: 64px auto;
+    font-size: 3rem;
+    color: $text-color;
     @include media(md){
-      flex-direction: row-reverse;
+      font-size: 36px;
     }
   }
-  & + li {
-    margin-top: 64px;
-  }
-  > figure {
-    flex: 0 0 50%;
-    > img {
-      width: 100%;
+  &__list{
+    padding: 0 12px;
+    @include media(md){
+      padding: 0;
     }
-  }
-  > dl {
-    color: white;
-    flex: 0 0 50%;
-    text-align: center;
-    > dt {
-      font-size: min(14vw, 2rem);
-      margin-top: 12px;
+    &__item{
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
       @include media(md){
-        font-size: 24px;
-        margin-top: 0;
+        flex-flow: row wrap;
       }
-    }
-    > dd {
-      font-size: min(14vw, 1rem);
-      margin-top: 12px;
-      @include media(md){
-        font-size: 16px;
+      &:nth-child(even) {
+        @include media(md){
+          flex-direction: row-reverse;
+        }
+      }
+      & + li {
+        margin-top: 48px;
+      }
+      >h3{
+        font-size: 2.4rem;
+      }
+      > figure {
+        flex: 0 0 50%;
+        margin-top: 14px;
+        @include media(md){
+          margin-top: 0;
+        }
+        > img {
+          width: 100%;
+        }
+      }
+      >p{
+        font-size: 1.6rem;
+        margin-top: 14px;
+        text-align: center;
+      }
+      > dl {
+        flex: 0 0 50%;
+        color: $text-color;
+        text-align: center;
+        > dt {
+          @include media(md){
+            font-size: 24px;
+            margin-top: 0;
+          }
+        }
+        > dd {
+          @include media(md){
+            font-size: 16px;
+            margin-top: 12px;
+          }
+        }
       }
     }
   }

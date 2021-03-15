@@ -17,6 +17,7 @@ ol,ul{
 a{
   text-decoration: none;
   color: $text-color;
+  cursor: pointer;
 }
 .c-sectionStyle{
   width: 100%;
@@ -30,6 +31,12 @@ a{
   @include media(md){
     width: 1000px;
     margin: 0 auto;
+  }
+}
+.sp_on{
+  display: block;
+  @include media(md){
+    display: none;
   }
 }
 
