@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # my-portfolio_v2
-=======
-# p5js
->>>>>>> f1df43e (Initial Commit)
 
 ## Build Setup
 
