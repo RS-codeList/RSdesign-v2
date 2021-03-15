@@ -46,8 +46,10 @@ export default {
     styleResources: {
         scss: [
             '~/assets/scss/_media.scss',
+            '~/assets/scss/_variable.scss',
+            '~/assets/scss/_index.scss',
             '~/assets/scss/_common.scss',
-            '~/assets/scss/_variable.scss'
+            '~/assets/scss/_animation.scss',
         ]
     },
 
