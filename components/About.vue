@@ -71,14 +71,6 @@ export default Vue.extend({
 .about{
   height: fit-content;
   min-height: 100vh;
-  &__title{
-    margin: 64px auto;
-    font-size: 3rem;
-    color: $text-color;
-    @include media(md){
-      font-size: 36px;
-    }
-  }
   &__list{
     padding: 0 12px;
     @include media(md){

@@ -5,7 +5,7 @@
 }
 html{
   font-size: calc(100vw / 32);
-  color: white;
+  color: $text-color;
 }
 body {
   font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
@@ -13,6 +13,14 @@ body {
 }
 ol,ul{
   list-style: none;
+}
+h2{
+  margin: 64px auto;
+  font-size: 3rem;
+  color: $text-color;
+  @include media(md){
+    font-size: 36px;
+  }
 }
 a{
   text-decoration: none;
@@ -37,6 +45,12 @@ a{
   display: block;
   @include media(md){
     display: none;
+  }
+}
+.pc_on{
+  display: none;
+  @include media(md){
+    display: block;
   }
 }
 

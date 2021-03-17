@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <h2 data-aos="fade-up">Works</h2>
+  <section class="c-sectionStyle works">
+    <h2 data-aos="fade-up" class="works__title">Works</h2>
     <ul class="panel-list">
       <li
         class="panel-item"
@@ -8,10 +8,9 @@
         :key="item.id"
         @click="openModal(item)"
         data-aos="fade-up"
-        :data-aos-delay="300 * (item.id + 1)"
       >
         <figure class="panel-inner" :class="{ 'panel-fade': item.active }">
-          <img class="panel-thumbnail" :src="item.p_thum" />
+          <img class="panel-thumbnail" :src="item.m_thum" />
         </figure>
       </li>
     </ul>
@@ -43,36 +42,33 @@ export default Vue.extend({
         {
           id: 0,
           active: false,
-          p_thum: "still/og_image-1.jpg",
-          p_pic: "still/zeisei2021_s.jpg",
-          p_pic_title: "税制改正 2021年度 税金の仕組みは何が変わる？｜NHK",
-          p_pic_skill: "HTML / CSS / JavaScript",
-          p_pic_sub:
-            "NHK様の税制改正サイト2021年度版のコーディングを担当しました。",
-          p_site_url: "https://www3.nhk.or.jp/news/special/zeisei2021/",
+          m_thum: "still/og_image-1.jpg",
+          m_pic_pc: "still/zeisei2021_s.jpg",
+          m_pic_sp: "still/zeisei2021_s_sp.jpg",
+          m_pic_title: "税制改正 2021年度 税金の<br class='sp_on'>仕組みは何が変わる？｜NHK",
+          m_pic_skill: "HTML / CSS / JavaScript",
+          m_site_url: "https://www3.nhk.or.jp/news/special/zeisei2021/",
         },
         {
           id: 1,
           active: false,
-          p_thum: "still/og_image.jpg",
-          p_pic: "still/yosan2021_s.jpg",
-          p_pic_title:
-            "2021年度予算案 一般会計の総額が過去最大に おさえておきたい数字をチェック｜NHK",
-          p_pic_skill: "HTML / CSS / JavaScript",
-          p_pic_sub:
-            "NHK様の来年度予算サイト2021年度版のコーディングを担当しました。",
-          p_site_url: "https://www3.nhk.or.jp/news/special/yosan2021/",
+          m_thum: "still/og_image-2.jpg",
+          m_pic_pc: "still/yosan2021_s.jpg",
+          m_pic_sp: "still/yosan2021_s_sp.jpg",
+          m_pic_title:
+            "2021年度予算案 <br class='sp_on'>一般会計の総額が過去最大に <br>おさえておきたい<br class='sp_on'>数字をチェック｜NHK",
+          m_pic_skill: "HTML / CSS / JavaScript",
+          m_site_url: "https://www3.nhk.or.jp/news/special/yosan2021/",
         },
         {
           id: 2,
           active: false,
-          p_thum: "still/og_image-2.jpg",
-          p_pic: "still/yosan2021_s.jpg",
-          p_pic_title: "被災地の声 被災者アンケート｜NHK NEWS WEB",
-          p_pic_skill: "HTML / CSS / JavaScript",
-          p_pic_sub:
-            "NHK様の被災地の声 被災者アンケート2021年度版のコーディングを担当しました。",
-          p_site_url:
+          m_thum: "still/og_image-3.jpg",
+          m_pic_pc: "still/shinsai_portal_s.jpg",
+          m_pic_sp: "still/shinsai_portal_s_sp.jpg",
+          m_pic_title: "被災地の声 被災者アンケート<br class='sp_on'>｜NHK NEWS WEB",
+          m_pic_skill: "HTML / CSS / JavaScript",
+          m_site_url:
             "https://www3.nhk.or.jp/news/special/shinsai-portal/10/questionnaire/",
         },
       ],
@@ -94,24 +90,11 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import "~assets/scss/_media.scss";
-section {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column wrap;
+.works {
+  height: fit-content;
   @include media(md) {
-    width: 1000px;
     height: calc(100vh - 146px);
-    margin: 0 auto;
-  }
-}
-h2 {
-  margin: 64px auto;
-  font-size: min(14vw, 3rem);
-  color: white;
-  @include media(md) {
-    font-size: 36px;
+    min-height: calc(100vh - 146px);
   }
 }
 
@@ -149,6 +132,7 @@ h2 {
   &-thumbnail {
     width: 100%;
     height: 100%;
+    border-radius: 3px;
   }
   //サムネクリック時のアニメーション
   &-fade {
