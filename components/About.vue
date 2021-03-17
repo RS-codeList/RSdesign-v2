@@ -1,6 +1,6 @@
 <template>
   <section id="about" class="c-sectionStyle about">
-    <h2 data-aos="fade-up" class="about__title">About</h2>
+    <h2 class="about__title">About</h2>
     <ul v-if="windowWidth >= 600" class="about__list">
       <li v-for="item in items" :key="item.id" class="about__list__item">
         <figure :data-aos="item.aos">

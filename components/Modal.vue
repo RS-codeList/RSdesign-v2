@@ -81,7 +81,7 @@ export default Vue.extend({
   }
   &-inner{
     width: 100%;
-    height: 450px;
+    height: 80%;
     @include media(md){
       height: 500px;
     }

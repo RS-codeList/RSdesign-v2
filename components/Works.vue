@@ -1,6 +1,6 @@
 <template>
   <section class="c-sectionStyle works">
-    <h2 data-aos="fade-up" class="works__title">Works</h2>
+    <h2 class="works__title">Works</h2>
     <ul class="panel-list">
       <li
         class="panel-item"
@@ -94,7 +94,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import "~assets/scss/_media.scss";
 .works {
   height: fit-content;
   @include media(md) {

@@ -5,7 +5,7 @@
     >
       <a href="" class="mainVisual__title__inner"><span>RS</span>design</a>
     </h1>
-    <a href="#about" class="mainVisual__scrollDown">Scroll</a>
+    <a href="#about" class="mainVisual__scrollDown" id="scrollDown">Scroll</a>
   </section>
 </template>
 
@@ -13,7 +13,17 @@
 import Vue from "vue";
 import "animate.css";
 
-export default Vue.extend({});
+export default Vue.extend({
+  mounted(){
+    const a = document.querySelector("#scrollDown");
+    a?.addEventListener('click',(e:any) => {
+      e.preventDefault();
+      const targetId = e.target.hash;
+      const target = document.querySelector(targetId);
+      target.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+});
 </script>
 
 <style lang="scss" scoped>
