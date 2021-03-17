@@ -28,6 +28,7 @@ import Modal from "./Modal.vue";
 export type DataType = {
   showModal: boolean;
   postItem: any;
+  body:any;
   items: any;
 };
 export default Vue.extend({
@@ -38,6 +39,7 @@ export default Vue.extend({
     return {
       showModal: false,
       postItem: "",
+      body: "",
       items: [
         {
           id: 0,
@@ -79,10 +81,13 @@ export default Vue.extend({
       this.postItem = item;
       this.showModal = true;
       this.postItem.active = true;
+      this.body = document.querySelector("body");
+      this.body.style.overflow = "hidden";
     },
     closeModal() {
       this.showModal = false;
       this.postItem.active = false;
+      this.body.style.overflow = "visible";
     },
   },
 });
