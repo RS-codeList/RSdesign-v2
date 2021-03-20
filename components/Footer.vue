@@ -5,7 +5,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import "~assets/scss/_media.scss";
 section {
   width: 100%;
   display: flex;

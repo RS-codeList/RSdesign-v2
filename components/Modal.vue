@@ -51,7 +51,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import "~assets/scss/_media.scss";
 .modal {
   &-bg {
     position: fixed;

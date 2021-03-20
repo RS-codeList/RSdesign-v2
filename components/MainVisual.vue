@@ -11,7 +11,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import "animate.css";
 
 export default Vue.extend({
   mounted(){

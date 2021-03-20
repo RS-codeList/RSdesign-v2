@@ -13,17 +13,15 @@ export default {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/my-portfolio_v2/favicon.ico' },
+            { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"}
         ]
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: [
-        'element-ui/lib/theme-chalk/index.css',
-    ],
+    css: [],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
-        '@/plugins/element-ui',
         { src: '@/plugins/aos', ssr: false },
     ],
 
@@ -56,9 +54,7 @@ export default {
     axios: {},
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {
-        transpile: [/^element-ui/],
-    },
+    build: {},
 
     router: {
         base: '/my-portfolio_v2/'
