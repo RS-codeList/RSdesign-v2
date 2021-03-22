@@ -21,11 +21,12 @@ ol,ul{
   list-style: none;
 }
 h2{
-  margin: 64px auto 64px;
+  margin: 64px auto 32px;
   font-size: 3rem;
   color: $text-color;
   @include media(md){
     font-size: 36px;
+    margin: 64px auto 64px;
   }
 }
 a{

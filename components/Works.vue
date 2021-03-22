@@ -123,6 +123,9 @@ export default Vue.extend({
   &-item {
     cursor: pointer;
     margin-bottom: 32px;
+    &:last-child{
+      margin-bottom: 0;
+    }
     @include media(md) {
       margin-bottom: 0;
     }

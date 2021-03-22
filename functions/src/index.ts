@@ -16,15 +16,16 @@ exports.sendMail = functions.https.onCall((data:any, context:any) => {
   const email = {
     from: gmailEmail,
     to: gmailDestination,
-    subject: data.form.subject.contents,
+    subject: "お問い合わせ",
     text:
-      data.form.message.contents +
+      "お名前:" +
+      data.form.name.contents +
       "\n" +
       "Email:" +
       data.form.email.contents +
       "\n" +
-      "Name:" +
-      data.form.name.contents,
+      "お問い合わせ内容:" +
+      data.form.message.contents,
   };
   mailTransport.sendMail(email, (err:any, info:any) => {
     if (err) {

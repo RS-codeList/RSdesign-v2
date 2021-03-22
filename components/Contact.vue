@@ -65,7 +65,7 @@
           <button
             id="submit"
             class="contact__wrapper__submitButton"
-            @click="sendMail()"
+            @click.prevent="sendMail()"
           >
             送信
           </button>
@@ -82,9 +82,7 @@ export default {
   data: () => ({
     form: {
       name: { contents: "" },
-      organization: { contents: "" },
       email: { contents: "" },
-      subject: { contents: "" },
       message: { contents: "" },
     },
   }),
@@ -94,7 +92,8 @@ export default {
       const sendMail = firebase.functions().httpsCallable("sendMail");
       sendMail({ form })
         .then((response) => {
-          alert(response);
+          // alert(response);
+          console.log(response.data);
         })
         .catch((error) => {
           alert(error);
@@ -126,11 +125,11 @@ export default {
 .contact {
   height: fit-content;
   @include media(md) {
-    height: calc(100vh - 146px);
+    min-height: calc(var(--vh) - 146px);
   }
   &__wrapper {
     width: 100%;
-    padding: 12px;
+    padding: 0 12px;
     margin: 0 auto;
     @include media(md) {
       padding: 0;
@@ -154,11 +153,12 @@ export default {
           display: block;
           order: 1;
           transition: transform 0.2s;
-          transform: translateY(2rem) scale(1);
+          transform: translateY(2.5rem) scale(1);
           transform-origin: 0 100%;
+          font-size: 1.4rem;
           @include media(md) {
-            font-size: 16px;
-            transform: translateY(30px) scale(1);
+            font-size: 18px;
+            transform: translateY(36px) scale(1);
           }
         }
         &__input,
@@ -166,17 +166,17 @@ export default {
           order: 2;
           width: 100%;
           border: none;
-          font-size: 1rem;
+          font-size: 1.6rem;
           padding: 8px;
           border-bottom: 1px solid $text-color;
           background-color: transparent;
           color: $text-color;
           @include media(md) {
-            font-size: 18px;
+            font-size: 20px;
           }
           &:focus {
-            outline: $text-color solid 1px;
-            border: none;
+            border: $text-color solid 1px;
+            outline: none;
           }
           &:invalid {
             box-shadow: none;
@@ -213,7 +213,6 @@ export default {
           }
         }
         &__textarea {
-          margin-top: 4px;
           border: 1px solid $text-color;
           & ~ .contact__wrapper__inner__item__label {
             padding-left: 8px;
@@ -222,11 +221,12 @@ export default {
         &__messageBox {
           padding: 0 8px 8px 8px;
           position: absolute;
-          bottom: -36px;
+          bottom: -2.6rem;
           z-index: -1;
-          font-size: 0.9rem;
+          font-size: 1rem;
           @include media(md) {
-            font-size: 14px;
+            font-size: 16px;
+            bottom: -36px;
           }
           &.errorMessage {
             color: #ff7f7f;
@@ -250,12 +250,12 @@ export default {
       border: none;
       background-color: $main-color;
       font-weight: bold;
-      font-size: 1rem;
+      font-size: 1.8rem;
       color: $text-color;
       cursor: pointer;
       transition: opacity 0.2s;
       @include media(md) {
-        font-size: 20px;
+        font-size: 24px;
       }
       &:disabled {
         background-color: #999;

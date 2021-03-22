@@ -61,6 +61,7 @@ export default Vue.extend({
     background-color: rgba(#000, 0.78);
     pointer-events: auto;
     cursor: pointer;
+    z-index: 1;
   }
   &-item {
     position: fixed;
