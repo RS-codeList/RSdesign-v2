@@ -4,6 +4,7 @@
     <MainVisual />
     <About />
     <Works />
+    <Contact />
     <Footer />
   </div>
 </template>
@@ -14,6 +15,7 @@ import Bubble from "@/components/Bubble.vue";
 import MainVisual from "@/components/MainVisual.vue";
 import About from "@/components/About.vue";
 import Works from "~/components/Works.vue";
+import Contact from "@/components/Contact.vue";
 import Footer from "~/components/Footer.vue";
 
 export default Vue.extend({
@@ -22,6 +24,7 @@ export default Vue.extend({
     MainVisual,
     About,
     Works,
+    Contact,
     Footer,
   },
 });

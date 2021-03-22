@@ -29,83 +29,85 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
-      windowWidth:0,
+      windowWidth: 0,
       items: [
         {
           pic: "still/coding.jpg",
           alt: "CODING",
           aos: "flip-left",
           heading: "CODING",
-          description: "Vue.js/JavaScript/HTML/CSS<br class='sp_on'>などが使えます。",
+          description:
+            "Vue.js/JavaScript/HTML/CSS<br class='sp_on'>などが使えます。",
         },
         {
           pic: "still/swim.jpg",
           alt: "SWIMMING",
           aos: "flip-up",
           heading: "SWIMMING",
-          description: "週一ペースで通ってます。<br class='sp_on'>クロールが得意です。",
+          description:
+            "週一ペースで通ってます。<br class='sp_on'>クロールが得意です。",
         },
         {
           pic: "still/bike.jpg",
           alt: "TOURING",
           aos: "flip-right",
           heading: "TOURING",
-          description: "z900rs cafeのライムグリーン<br class='sp_on'>に乗ってます。",
+          description:
+            "z900rs cafeのライムグリーン<br class='sp_on'>に乗ってます。",
         },
       ],
     };
   },
-  methods:{
-    discriminationMedia(){
+  methods: {
+    discriminationMedia() {
       this.windowWidth = window.innerWidth;
     },
   },
-  mounted(){
+  mounted() {
     this.discriminationMedia();
-    window.addEventListener('resize', this.discriminationMedia);
+    window.addEventListener("resize", this.discriminationMedia);
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.about{
+.about {
   height: fit-content;
-  min-height: 100vh;
-  &__list{
+  &__list {
     padding: 0 12px;
-    @include media(md){
+    @include media(md) {
       padding: 0;
     }
-    &__item{
+    &__item {
       display: flex;
       flex-flow: column nowrap;
       justify-content: center;
       align-items: center;
-      @include media(md){
+      @include media(md) {
         flex-flow: row wrap;
       }
       &:nth-child(even) {
-        @include media(md){
+        @include media(md) {
           flex-direction: row-reverse;
         }
       }
       & + li {
         margin-top: 48px;
       }
-      >h3{
+      > h3 {
         font-size: 2.4rem;
       }
       > figure {
         flex: 0 0 50%;
         margin-top: 14px;
-        @include media(md){
+        @include media(md) {
           margin-top: 0;
         }
         > img {
           width: 100%;
         }
       }
-      >p{
+      > p {
         font-size: 1.6rem;
         margin-top: 14px;
         text-align: center;
@@ -115,13 +117,13 @@ export default Vue.extend({
         color: $text-color;
         text-align: center;
         > dt {
-          @include media(md){
+          @include media(md) {
             font-size: 24px;
             margin-top: 0;
           }
         }
         > dd {
-          @include media(md){
+          @include media(md) {
             font-size: 16px;
             margin-top: 12px;
           }

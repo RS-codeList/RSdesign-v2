@@ -12,8 +12,9 @@ export default {
             { hid: 'description', name: 'description', content: 'フロントエンジニア櫻井のポートフォリオサイトです' }
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/my-portfolio_v2/favicon.ico' },
-            { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"}
+            // { rel: 'icon', type: 'image/x-icon', href: '/my-portfolio_v2/favicon.ico' },
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" }
         ]
     },
 
@@ -23,6 +24,7 @@ export default {
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
         { src: '@/plugins/aos', ssr: false },
+        "~/plugins/firebase.js"
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -39,6 +41,7 @@ export default {
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/axios',
         '@nuxtjs/style-resources',
+        "@nuxtjs/dotenv"
     ],
 
     styleResources: {
@@ -56,7 +59,7 @@ export default {
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
 
-    router: {
-        base: '/my-portfolio_v2/'
-    }
+    // router: {
+    //     base: '/my-portfolio_v2/'
+    // }
 }

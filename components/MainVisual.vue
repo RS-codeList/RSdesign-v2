@@ -13,15 +13,15 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  mounted(){
+  mounted() {
     const a = document.querySelector("#scrollDown");
-    a?.addEventListener('click',(e:any) => {
+    a?.addEventListener("click", (e: any) => {
       e.preventDefault();
       const targetId = e.target.hash;
       const target = document.querySelector(targetId);
       target.scrollIntoView({ behavior: "smooth" });
     });
-  }
+  },
 });
 </script>
 

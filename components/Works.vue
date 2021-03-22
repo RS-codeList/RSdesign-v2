@@ -28,7 +28,7 @@ import Modal from "./Modal.vue";
 export type DataType = {
   showModal: boolean;
   postItem: any;
-  body:any;
+  body: any;
   items: any;
 };
 export default Vue.extend({
@@ -47,7 +47,8 @@ export default Vue.extend({
           m_thum: "still/og_image-1.jpg",
           m_pic_pc: "still/zeisei2021_s.jpg",
           m_pic_sp: "still/zeisei2021_s_sp.jpg",
-          m_pic_title: "税制改正 2021年度 税金の<br class='sp_on'>仕組みは何が変わる？｜NHK",
+          m_pic_title:
+            "税制改正 2021年度 税金の<br class='sp_on'>仕組みは何が変わる？｜NHK",
           m_pic_skill: "HTML / CSS / JavaScript",
           m_site_url: "https://www3.nhk.or.jp/news/special/zeisei2021/",
         },
@@ -68,7 +69,8 @@ export default Vue.extend({
           m_thum: "still/og_image-3.jpg",
           m_pic_pc: "still/shinsai_portal_s.jpg",
           m_pic_sp: "still/shinsai_portal_s_sp.jpg",
-          m_pic_title: "被災地の声 被災者アンケート<br class='sp_on'>｜NHK NEWS WEB",
+          m_pic_title:
+            "被災地の声 被災者アンケート<br class='sp_on'>｜NHK NEWS WEB",
           m_pic_skill: "HTML / CSS / JavaScript",
           m_site_url:
             "https://www3.nhk.or.jp/news/special/shinsai-portal/10/questionnaire/",
@@ -97,8 +99,7 @@ export default Vue.extend({
 .works {
   height: fit-content;
   @include media(md) {
-    height: calc(100vh - 146px);
-    min-height: calc(100vh - 146px);
+    min-height: 0;
   }
 }
 
