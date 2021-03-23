@@ -125,9 +125,9 @@ export default {
 <style lang="scss" scoped>
 .contact {
   height: fit-content;
-  @include media(md) {
-    min-height: calc(var(--vh) - 146px);
-  }
+  //   @include media(md) {
+  //     min-height: calc(var(--vh) - 146px);
+  //   }
   &__wrapper {
     width: 100%;
     padding: 0 12px;
@@ -244,10 +244,10 @@ export default {
       }
     }
     &__submitButton {
+      line-height: 1;
       display: block;
       margin: 0 auto;
-      width: 120px;
-      height: 40px;
+      padding: 1.2rem 2.4rem;
       border: none;
       background-color: $main-color;
       font-weight: bold;
@@ -257,6 +257,7 @@ export default {
       transition: opacity 0.2s;
       @include media(md) {
         font-size: 24px;
+        padding: 12px 24px;
       }
       &:disabled {
         background-color: #999;
