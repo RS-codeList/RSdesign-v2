@@ -92,11 +92,12 @@ export default {
       const sendMail = firebase.functions().httpsCallable("sendMail");
       sendMail({ form })
         .then((response) => {
+          alert("お問い合わせありがとうございます。送信完了しました");
           // alert(response);
-          console.log(response.data);
+          //   console.log(response);
         })
         .catch((error) => {
-          alert(error);
+          alert("送信に失敗しました。時間をおいて再度お試しください");
         });
     },
   },
