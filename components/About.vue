@@ -92,7 +92,10 @@ export default Vue.extend({
         }
       }
       & + li {
-        margin-top: 48px;
+        margin-top: 28px;
+        @include media(md){
+          margin-top: 48px;
+        }
       }
       > h3 {
         font-size: 2.4rem;

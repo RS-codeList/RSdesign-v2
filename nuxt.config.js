@@ -9,7 +9,7 @@ export default {
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: 'フロントエンジニア櫻井のポートフォリオサイトです' }
+            { hid: 'description', name: 'description', content: 'フロントエンジニアSakuraiのポートフォリオサイトです' }
         ],
         link: [
             // { rel: 'icon', type: 'image/x-icon', href: '/my-portfolio_v2/favicon.ico' },

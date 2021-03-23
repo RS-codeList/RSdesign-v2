@@ -122,7 +122,7 @@ export default Vue.extend({
   }
   &-item {
     cursor: pointer;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     &:last-child{
       margin-bottom: 0;
     }

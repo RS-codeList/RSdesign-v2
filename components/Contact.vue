@@ -1,77 +1,73 @@
 <template>
   <section class="c-sectionStyle contact">
     <h2 class="contact__title">Contact</h2>
-    <div class="contact__wrapper">
-      <form>
-        <fieldset>
-          <div class="contact__wrapper__inner">
-            <p class="contact__wrapper__inner__item">
-              <input
-                v-model="form.name.contents"
-                type="text"
-                id="name"
-                class="contact__wrapper__inner__item__input"
-                placeholder="お名前"
-                required
-              />
-              <label for="name" class="contact__wrapper__inner__item__label"
-                >お名前 *</label
-              >
-              <span
-                class="errorMessage contact__wrapper__inner__item__messageBox"
-                >必須項目です</span
-              >
-              <span class="OKMessage contact__wrapper__inner__item__messageBox"
-                >OKです！</span
-              >
-            </p>
-            <p class="contact__wrapper__inner__item">
-              <input
-                v-model="form.email.contents"
-                type="email"
-                id="email"
-                class="contact__wrapper__inner__item__input"
-                required
-                placeholder="メールアドレス"
-              />
-              <label for="email" class="contact__wrapper__inner__item__label"
-                >メールアドレス *</label
-              >
-              <span
-                class="errorMessage contact__wrapper__inner__item__messageBox"
-                >正しい形式で入力してください</span
-              >
-              <span class="OKMessage contact__wrapper__inner__item__messageBox"
-                >OKです！</span
-              >
-            </p>
-            <p class="contact__wrapper__inner__item">
-              <textarea
-                v-model="form.message.contents"
-                name="detail"
-                id="detail"
-                class="contact__wrapper__inner__item__textarea"
-                cols="30"
-                rows="10"
-                placeholder="お問い合わせ内容"
-                required
-              ></textarea>
-              <label for="detail" class="contact__wrapper__inner__item__label"
-                >お問い合わせ内容 *</label
-              >
-            </p>
-          </div>
-          <p class="contact__wrapper__required">* は必須事項</p>
-          <button
-            id="submit"
-            class="contact__wrapper__submitButton"
-            @click.prevent="sendMail()"
-          >
-            送信
-          </button>
-        </fieldset>
-      </form>
-    </div>
+    <form class="contact__wrapper">
+      <fieldset>
+          <p class="contact__wrapper__item">
+            <input
+              v-model="form.name.contents"
+              type="text"
+              id="name"
+              class="contact__wrapper__item__input"
+              placeholder="お名前"
+              required
+            />
+            <label for="name" class="contact__wrapper__item__label"
+              >お名前 *</label
+            >
+            <span
+              class="errorMessage contact__wrapper__item__messageBox"
+              >必須項目です</span
+            >
+            <span class="OKMessage contact__wrapper__item__messageBox"
+              >OKです！</span
+            >
+          </p>
+          <p class="contact__wrapper__item">
+            <input
+              v-model="form.email.contents"
+              type="email"
+              id="email"
+              class="contact__wrapper__item__input"
+              required
+              placeholder="メールアドレス"
+            />
+            <label for="email" class="contact__wrapper__item__label"
+              >メールアドレス *</label
+            >
+            <span
+              class="errorMessage contact__wrapper__item__messageBox"
+              >正しい形式で入力してください</span
+            >
+            <span class="OKMessage contact__wrapper__item__messageBox"
+              >OKです！</span
+            >
+          </p>
+          <p class="contact__wrapper__item">
+            <textarea
+              v-model="form.message.contents"
+              name="detail"
+              id="detail"
+              class="contact__wrapper__item__textarea"
+              cols="30"
+              rows="10"
+              placeholder="お問い合わせ内容"
+              required
+            ></textarea>
+            <label for="detail" class="contact__wrapper__item__label"
+              >お問い合わせ内容 *</label
+            >
+          </p>
+        <!-- <p class="contact__wrapper__required">* は必須事項</p> -->
+        <button
+          id="submit"
+          class="contact__wrapper__submitButton"
+          @click.prevent="sendMail()"
+        >
+          送信
+        </button>
+      </fieldset>
+    </form>
   </section>
 </template>
 
@@ -124,10 +120,13 @@ export default {
 
 <style lang="scss" scoped>
 .contact {
-  height: fit-content;
+  // height: fit-content;
   //   @include media(md) {
   //     min-height: calc(var(--vh) - 146px);
   //   }
+  &__title{
+    margin-top: 0;
+  }
   &__wrapper {
     width: 100%;
     padding: 0 12px;
@@ -135,7 +134,6 @@ export default {
     @include media(md) {
       padding: 0;
     }
-    &__inner {
       &__item {
         display: flex;
         flex-flow: column nowrap;
@@ -146,7 +144,7 @@ export default {
         }
         &:focus-within {
           //テキストボックスにフォーカスされた時、子要素に適用するスタイル
-          .contact__wrapper__inner__item__label {
+          .contact__wrapper__item__label {
             transform: translateY(0) scale(0.8);
           }
         }
@@ -203,19 +201,19 @@ export default {
             color: transparent;
           }
           &:placeholder-shown {
-            & ~ .contact__wrapper__inner__item__messageBox {
+            & ~ .contact__wrapper__item__messageBox {
               display: none;
             }
           }
           &:not(:placeholder-shown) {
-            & ~ .contact__wrapper__inner__item__label {
+            & ~ .contact__wrapper__item__label {
               transform: translateY(0) scale(0.8);
             }
           }
         }
         &__textarea {
           border: 1px solid $text-color;
-          & ~ .contact__wrapper__inner__item__label {
+          & ~ .contact__wrapper__item__label {
             padding-left: 8px;
           }
         }
@@ -226,7 +224,7 @@ export default {
           z-index: -1;
           font-size: 1rem;
           @include media(md) {
-            font-size: 16px;
+            font-size: 14px;
             bottom: -36px;
           }
           &.errorMessage {
@@ -237,21 +235,20 @@ export default {
           }
         }
       }
-    }
-    &__required {
-      @include media(md) {
-        font-size: 14px;
-      }
-    }
+    // &__required {
+    //   @include media(md) {
+    //     font-size: 14px;
+    //   }
+    // }
     &__submitButton {
       line-height: 1;
       display: block;
       margin: 0 auto;
-      padding: 1.2rem 2.4rem;
+      padding: 1rem 1.6rem;
       border: none;
       background-color: $main-color;
       font-weight: bold;
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: $text-color;
       cursor: pointer;
       transition: opacity 0.2s;

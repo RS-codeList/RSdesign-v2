@@ -15,7 +15,8 @@ export default {
   },
   mounted() {
     this.resize_height();
-    // window.addEventListener("resize", this.resize_height());
+    //ビューポートの高さが変わったときに変更
+    // window.addEventListener("resize", () => {this.resize_height()});
   },
 };
 </script>
