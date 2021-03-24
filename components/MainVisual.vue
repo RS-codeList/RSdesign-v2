@@ -1,5 +1,5 @@
 <template>
-  <section class="c-sectionStyle mainVisual">
+  <section id="mainVisual" class="c-sectionStyle mainVisual">
     <h1
       class="animate__animated animate__fadeInUp animate__delay-1s mainVisual__title"
     >

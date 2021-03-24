@@ -1,13 +1,13 @@
 <template>
   <div class="wrapper">
     <Bubble />
-    <div class="wrapper__inner">
+    <div id="wrapper__inner" class="wrapper__inner">
       <MainVisual />
       <About />
       <Works />
       <Contact />
-      <Footer />
     </div>
+    <Footer />
   </div>
 </template>
 

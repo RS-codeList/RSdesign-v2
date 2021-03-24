@@ -1,5 +1,5 @@
 <template>
-  <section class="c-sectionStyle works">
+  <section id="works" class="c-sectionStyle works">
     <h2 class="works__title">Works</h2>
     <ul class="panel-list">
       <li
@@ -123,7 +123,7 @@ export default Vue.extend({
   &-item {
     cursor: pointer;
     margin-bottom: 28px;
-    &:last-child{
+    &:last-child {
       margin-bottom: 0;
     }
     @include media(md) {
