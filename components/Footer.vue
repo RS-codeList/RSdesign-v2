@@ -30,7 +30,27 @@
 
 <script>
 export default {
+  data() {
+    return {
+      footer_height: 0,
+      active_footer: false,
+      footer: null,
+    };
+  },
+  methods: {
+    resize_footer() {
+      this.footer = document.querySelector(".footer");
+      this.footer_height = this.footer.clientHeight;
+      document.documentElement.style.setProperty(
+        "--footerHeight",
+        `${this.footer_height}px`
+      );
+      this.footer.classList.add("footer__off");
+    },
+  },
   mounted() {
+    this.resize_footer();
+
     const paginations = document.querySelectorAll(".footer__nav__list__item a");
     paginations.forEach((pagination) => {
       pagination.addEventListener("click", (e) => {
@@ -40,11 +60,53 @@ export default {
         target.scrollIntoView({ behavior: "smooth" });
       });
     });
+
+    const options = {
+      root: null, // ビューポートをルート要素とする
+      rootMargin: "0px", // 交差判定をルート要素の設定数値分拡大
+      threshold: 1.0, // 交差割合
+    };
+
+    const callback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // 要素が交差した際の動作
+          setTimeout(() => {
+            this.footer.classList.add("footer__on");
+          }, 2000);
+          //   this.active_footer = true;
+        } else {
+          // 要素が交差から外れた際の動作
+          //   this.footer.classList.remove("footer__on");
+          //   this.active_footer = false;
+        }
+      });
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const contact = document.querySelector("#contact");
+    observer.observe(contact);
+
+    // if (!this.active_footer) {
+    //   this.footer.addEventListener("scroll", () => {
+    //     this.footer.classList.remove("footer__on");
+    //   });
+    // }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.footer__off {
+  overflow: hidden;
+  visibility: hidden;
+  height: 0;
+  transition: 0.5s;
+}
+.footer__on {
+  overflow: visible;
+  visibility: visible;
+  height: var(--footerHeight);
+}
 .footer {
   width: 100%;
   display: flex;

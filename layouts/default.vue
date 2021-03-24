@@ -15,7 +15,6 @@ export default {
       this.vh = window.innerHeight;
       // カスタム変数--vhの値をドキュメントのルートに設定
       document.documentElement.style.setProperty("--vh", `${this.vh}px`);
-      console.log(this.vh);
     },
   },
   mounted() {

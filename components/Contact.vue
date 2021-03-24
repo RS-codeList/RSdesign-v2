@@ -77,6 +77,7 @@ export default {
       email: { contents: "" },
       message: { contents: "" },
     },
+    submitButton: null,
   }),
   methods: {
     sendMail() {
@@ -85,8 +86,12 @@ export default {
       sendMail({ form })
         .then((response) => {
           alert("お問い合わせありがとうございます。送信完了しました");
+          this.form.name.contents = "";
+          this.form.email.contents = "";
+          this.form.message.contents = "";
+          this.submitButton.disabled = true;
           // alert(response);
-          //   console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           alert("送信に失敗しました。時間をおいて再度お試しください");
@@ -99,8 +104,8 @@ export default {
      */
     const validate = () => {
       const validForm = document.querySelector("form:valid");
-      const submitButton = document.querySelector("#submit");
-      submitButton.disabled = validForm === null;
+      this.submitButton = document.querySelector("#submit");
+      this.submitButton.disabled = validForm === null;
     };
 
     // 初期読み込み時に実行
