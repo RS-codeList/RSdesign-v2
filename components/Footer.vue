@@ -35,6 +35,7 @@ export default {
       footer_height: 0,
       active_footer: false,
       footer: null,
+      scroll_point:0,
     };
   },
   methods: {
@@ -61,21 +62,44 @@ export default {
       });
     });
 
+    this.scroll_point = 1 - (this.footer_height + 1) / window.innerHeight;//フッター判定回避用
+
     const options = {
       root: null, // ビューポートをルート要素とする
-      rootMargin: "0px", // 交差判定をルート要素の設定数値分拡大
-      threshold: 1.0, // 交差割合
+      rootMargin: "0%", // root内交差判定位置指定
+      threshold: [this.scroll_point, 1.0], // 交差割合
     };
 
-    const callback = (entries) => {
+    const callback = (entries,observer) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (entry.intersectionRatio === 1) {
           // 要素が交差した際の動作
+          // this.active_footer = !this.active_footer;//フラグの切り替え用
+          // console.log(this.active_footer)
+          // this.contact_top = window.pageYOffset;
+          // this.active_footer = true;
           setTimeout(() => {
             this.footer.classList.add("footer__on");
-          }, 2000);
+          }, 500);
+          // this.footer.classList.toggle("footer__on");
           //   this.active_footer = true;
         } else {
+          if(entry.intersectionRatio <= this.scroll_point){
+            // this.active_footer = false;
+            this.footer.classList.remove("footer__on");
+          }
+
+          // if(this.scroll_point < this.contact_top){
+          //   this.active_footer = false;
+          //   this.footer.classList.remove("footer__on");
+          // }
+          // if(!entry.isIntersecting){
+          //   this.active_footer = true;
+          // }
+          // else{
+          //   this.active_footer = false;
+          //   this.footer.classList.remove("footer__on");
+          // }
           // 要素が交差から外れた際の動作
           //   this.footer.classList.remove("footer__on");
           //   this.active_footer = false;
@@ -85,12 +109,11 @@ export default {
     const observer = new IntersectionObserver(callback, options);
     const contact = document.querySelector("#contact");
     observer.observe(contact);
-
-    // if (!this.active_footer) {
-    //   this.footer.addEventListener("scroll", () => {
-    //     this.footer.classList.remove("footer__on");
-    //   });
-    // }
+    // const footerAnime = document.querySelector(".footer__off");
+    // footerAnime.addEventListener("transitionend",(event)=>{
+    //   event.target.style.overflow= this.active_footer ? "visible":"hidden";
+    //   // console.log(event);
+    // });
   },
 };
 </script>
@@ -98,13 +121,13 @@ export default {
 <style lang="scss" scoped>
 .footer__off {
   overflow: hidden;
-  visibility: hidden;
+  // visibility: hidden;
   height: 0;
-  transition: 0.5s;
+  // transition: 0.5s;
 }
 .footer__on {
-  overflow: visible;
-  visibility: visible;
+  // overflow: visible;
+  // visibility: visible;
   height: var(--footerHeight);
 }
 .footer {
