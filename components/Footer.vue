@@ -35,7 +35,7 @@ export default {
       footer_height: 0,
       active_footer: false,
       footer: null,
-      scroll_point:0,
+      scroll_point: 0,
     };
   },
   methods: {
@@ -62,30 +62,32 @@ export default {
       });
     });
 
-    this.scroll_point = 1 - (this.footer_height + 1) / window.innerHeight;//フッター判定回避用
+    this.scroll_point = 1 - (this.footer_height + 1) / window.innerHeight; //フッター判定回避用
 
     const options = {
       root: null, // ビューポートをルート要素とする
       rootMargin: "0%", // root内交差判定位置指定
-      threshold: [this.scroll_point, 1.0], // 交差割合
+      threshold: [this.scroll_point, 1], // 交差割合
     };
 
-    const callback = (entries,observer) => {
+    const callback = (entries, observer) => {
       entries.forEach((entry) => {
-        if (entry.intersectionRatio === 1) {
+        if (entry.isIntersecting) {
+          // if (entry.intersectionRatio === 1) {
           // 要素が交差した際の動作
           // this.active_footer = !this.active_footer;//フラグの切り替え用
           // console.log(this.active_footer)
           // this.contact_top = window.pageYOffset;
           // this.active_footer = true;
+          console.log("uaaaaaaa!!!");
           setTimeout(() => {
             this.footer.classList.add("footer__on");
-          }, 500);
+          }, 1000);
           // this.footer.classList.toggle("footer__on");
           //   this.active_footer = true;
         } else {
-          if(entry.intersectionRatio <= this.scroll_point){
-            // this.active_footer = false;
+          console.log("hogehogehogehoge!!!");
+          if (entry.intersectionRatio <= this.scroll_point) {
             this.footer.classList.remove("footer__on");
           }
 
