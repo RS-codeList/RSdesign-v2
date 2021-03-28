@@ -1,13 +1,13 @@
 <template>
   <section id="about" class="c-sectionStyle about">
     <h2 class="about__title">About</h2>
-    <div class="about__profile">
+    <div class="about__profile" data-aos="fade-up">
       <figure data-aos="fade-up" class="about__profile__pic">
         <img src="still/my_face.jpg" alt="">
       </figure>
       <dl class="about__profile__inner">
-        <dt data-aos="fade-up">Ryousuke Sakurai</dt>
-        <dd data-aos="fade-up">専門商社で営業職を経て、Web業界に転職。<br>現在、某報道局にてWebサイトのコーディングを主に担当しております。</dd>
+        <dt data-aos="fade-up"><span>R</span>yousuke <span>S</span>akurai</dt>
+        <dd data-aos="fade-up">専門商社で営業職を経て、Web業界に転職。<br>現在は、報道局にてWebサイトのコーディングを主に担当しております。</dd>
       </dl>
     </div>
     <ul v-if="windowWidth >= 600" class="about__list">
@@ -82,17 +82,23 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .about {
   height: fit-content;
+  padding: 0 12px;
+  @include media(md){
+    padding: 0;
+  }
   &__profile{
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    padding: 0 12px;
+    padding: 16px;
+    background: rgba($text-color, .1);
+    border-radius: 6px;
     @include media(md) {
-      // flex-flow: row nowrap;
+      flex-flow: row nowrap;
       width: 600px;
       margin: 0 auto;
-      padding: 0;
+      padding: 12px 24px;
     }
     &__pic{
       width: 100%;
@@ -103,8 +109,8 @@ export default Vue.extend({
       > img{
         vertical-align: middle;
         border-radius: 50%;
-        width: 45%;
-        height: 45%;
+        width: 35%;
+        height: 35%;
         @include media(md){
           width: 150px;
           height: 150px;
@@ -121,8 +127,12 @@ export default Vue.extend({
       >dt{
         font-size: 2rem;
         text-align: center;
+        font-weight: bold;
         @include media(md){
           font-size: 24px;
+        }
+        >span{
+          color: $main-color;
         }
       }
       >dd{
@@ -137,9 +147,7 @@ export default Vue.extend({
   }
   &__list {
     margin-top: 28px;
-    padding: 0 12px;
     @include media(md) {
-      padding: 0;
       margin-top: 48px;
     }
     &__item {
@@ -184,6 +192,7 @@ export default Vue.extend({
         color: $text-color;
         text-align: center;
         > dt {
+          font-weight: bold;
           @include media(md) {
             font-size: 24px;
             margin-top: 0;

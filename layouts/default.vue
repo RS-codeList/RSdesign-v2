@@ -21,6 +21,9 @@ export default {
     this.resize_height();
     //ビューポートの高さが変わったときに変更
     // window.addEventListener("resize", () => {this.resize_height()});
+    setTimeout(function(){
+      window.scrollTo(0,1);
+    }, 1);
   },
 };
 </script>

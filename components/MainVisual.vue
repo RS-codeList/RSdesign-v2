@@ -29,13 +29,14 @@ export default Vue.extend({
 .mainVisual {
   &__title {
     text-align: center;
+    font-weight: bold;
     &__inner {
       font-size: 4rem;
       @include media(md) {
         font-size: 48px;
       }
       &::after {
-        content: "WebCreator Sakurai";
+        content: "WebCreator Ryousuke";
         display: block;
         font-size: 2rem;
         @include media(md) {

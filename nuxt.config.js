@@ -4,12 +4,23 @@ export default {
     head: {
         title: 'RSdesign',
         htmlAttrs: {
-            lang: 'ja'
+            lang: 'ja',
+            prefix: 'og: http://ogp.me/ns#'
         },
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: 'フロントエンジニアSakuraiのポートフォリオサイトです' }
+            { hid: 'description', name: 'description', content: 'フロントエンジニアRyousukeのポートフォリオサイトです' },
+            { hid: 'og:title', property: 'og:title', content: 'RSdesign' },
+            { hid: 'og:description', property: 'og:description', content: 'フロントエンジニアRyousukeのポートフォリオサイトです' },
+            { hid: 'og:type', property: 'og:type', content: 'website' },
+            { hid: 'og:url', property: 'og:url', content: 'https://my-portfolio-v2-1524e.web.app/' },
+            { hid: 'og:image', property: 'og:image', content: 'https://my-portfolio-v2-1524e.web.app/still/og_RSdesign.jpg' },
+            { hid: 'og:site_name', property: 'og:site_name', content: 'RSdesign' },
+            { hid: 'og:locale', property: 'og:locale', content: 'ja_JP' },
+            { hid: 'robots', name: 'robots', content: 'noindex,nofollow' },
+            { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+            { hid: 'twitter:site', name: 'twitter:site', content: '@RSdesign25' },
         ],
         link: [
             // { rel: 'icon', type: 'image/x-icon', href: '/my-portfolio_v2/favicon.ico' },

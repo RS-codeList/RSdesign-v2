@@ -79,14 +79,12 @@ export default {
           // console.log(this.active_footer)
           // this.contact_top = window.pageYOffset;
           // this.active_footer = true;
-          console.log("uaaaaaaa!!!");
           setTimeout(() => {
             this.footer.classList.add("footer__on");
           }, 1000);
           // this.footer.classList.toggle("footer__on");
           //   this.active_footer = true;
         } else {
-          console.log("hogehogehogehoge!!!");
           if (entry.intersectionRatio <= this.scroll_point) {
             this.footer.classList.remove("footer__on");
           }
@@ -146,6 +144,7 @@ export default {
   }
   &__title {
     margin-top: 2.4rem;
+    font-weight: bold;
     @include media(md) {
       margin-top: 24px;
     }
