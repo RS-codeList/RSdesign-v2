@@ -3,14 +3,16 @@
     <h2 class="about__title">About</h2>
     <div class="about__profile" data-aos="fade-up">
       <figure data-aos="fade-up" class="about__profile__pic">
-        <img src="still/my_face.jpg" alt="">
+        <img src="still/my_face.jpg" alt="" />
       </figure>
       <dl class="about__profile__inner">
         <dt data-aos="fade-up"><span>R</span>yousuke <span>S</span>akurai</dt>
-        <dd data-aos="fade-up">専門商社で営業職を経て、Web業界に転職。<br>現在は、報道局にてWebサイトのコーディングを主に担当しております。</dd>
+        <dd data-aos="fade-up">
+          専門商社で営業職を経て、Web業界に転職。<br />現在は、報道局にてWebサイトのコーディングを主に担当しております。
+        </dd>
       </dl>
     </div>
-    <ul v-if="windowWidth >= 600" class="about__list">
+    <ul v-if="window_width >= 600" class="about__list">
       <li v-for="item in items" :key="item.id" class="about__list__item">
         <figure :data-aos="item.aos">
           <img :src="item.pic" :alt="item.alt" />
@@ -35,10 +37,17 @@
 
 <script lang="ts">
 import Vue from "vue";
+type Item = {
+  pic: string;
+  alt: string;
+  aos: string;
+  heading: string;
+  description: string;
+};
 export default Vue.extend({
   data() {
     return {
-      windowWidth: 0,
+      window_width: 0 as number,
       items: [
         {
           pic: "still/coding.jpg",
@@ -47,7 +56,7 @@ export default Vue.extend({
           heading: "CODING",
           description:
             "Vue.js/JavaScript/HTML/CSS<br class='sp_on'>などが使えます。",
-        },
+        } as Item,
         {
           pic: "still/swim.jpg",
           alt: "SWIMMING",
@@ -55,7 +64,7 @@ export default Vue.extend({
           heading: "SWIMMING",
           description:
             "週一ペースで通ってます。<br class='sp_on'>クロールが得意です。",
-        },
+        } as Item,
         {
           pic: "still/bike.jpg",
           alt: "TOURING",
@@ -63,13 +72,13 @@ export default Vue.extend({
           heading: "TOURING",
           description:
             "z900rs cafeのライムグリーン<br class='sp_on'>に乗ってます。",
-        },
+        } as Item,
       ],
     };
   },
   methods: {
     discriminationMedia() {
-      this.windowWidth = window.innerWidth;
+      this.window_width = window.innerWidth;
     },
   },
   mounted() {
@@ -83,16 +92,16 @@ export default Vue.extend({
 .about {
   height: fit-content;
   padding: 0 12px;
-  @include media(md){
+  @include media(md) {
     padding: 0;
   }
-  &__profile{
+  &__profile {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     padding: 16px;
-    background: rgba($text-color, .1);
+    background: rgba($text-color, 0.1);
     border-radius: 6px;
     @include media(md) {
       flex-flow: row nowrap;
@@ -100,45 +109,45 @@ export default Vue.extend({
       margin: 0 auto;
       padding: 12px 24px;
     }
-    &__pic{
+    &__pic {
       width: 100%;
       text-align: center;
-      @include media(md){
+      @include media(md) {
         width: auto;
       }
-      > img{
+      > img {
         vertical-align: middle;
         border-radius: 50%;
         width: 35%;
         height: 35%;
-        @include media(md){
+        @include media(md) {
           width: 150px;
           height: 150px;
         }
       }
     }
-    &__inner{
+    &__inner {
       margin-top: 8px;
       text-align: justify;
-      @include media(md){
+      @include media(md) {
         margin-top: 12px;
         margin-left: 24px;
       }
-      >dt{
+      > dt {
         font-size: 2rem;
         text-align: center;
         font-weight: bold;
-        @include media(md){
+        @include media(md) {
           font-size: 24px;
         }
-        >span{
+        > span {
           color: $main-color;
         }
       }
-      >dd{
+      > dd {
         margin-top: 8px;
         font-size: 1.4rem;
-        @include media(md){
+        @include media(md) {
           font-size: 16px;
           margin-top: 12px;
         }
@@ -165,7 +174,7 @@ export default Vue.extend({
       }
       & + li {
         margin-top: 28px;
-        @include media(md){
+        @include media(md) {
           margin-top: 48px;
         }
       }

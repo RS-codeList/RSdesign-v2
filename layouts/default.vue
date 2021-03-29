@@ -2,28 +2,22 @@
   <Nuxt />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend({
   data() {
     return {
-      vh: null,
+      vh: 0 as number,
     };
   },
   methods: {
-    resize_height() {
-      // 最初に、ビューポートの高さを取得し、0.01を掛けて1%の値を算出して、vh単位の値を取得
-      this.vh = window.innerHeight;
-      // カスタム変数--vhの値をドキュメントのルートに設定
-      document.documentElement.style.setProperty("--vh", `${this.vh}px`);
+    window_height() {
+      this.vh = window.innerHeight; //viewportの高さを取得
+      document.documentElement.style.setProperty("--vh", `${this.vh}px`); //scssの変数に代入
     },
   },
   mounted() {
-    this.resize_height();
-    //ビューポートの高さが変わったときに変更
-    // window.addEventListener("resize", () => {this.resize_height()});
-    setTimeout(function(){
-      window.scrollTo(0,1);
-    }, 1);
+    this.window_height();
   },
-};
+});
 </script>

@@ -67,56 +67,61 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import firebase from "~/plugins/firebase.js";
 
-export default {
-  data: () => ({
-    form: {
-      name: { contents: "" },
-      email: { contents: "" },
-      message: { contents: "" },
-    },
-    submitButton: null,
-  }),
+type Form = {
+  name: { contents: string };
+  email: { contents: string };
+  message: { contents: string };
+};
+
+export default Vue.extend({
+  data() {
+    return {
+      form: {
+        name: { contents: "" },
+        email: { contents: "" },
+        message: { contents: "" },
+      } as Form,
+      submitButton: {} as HTMLButtonElement,
+    };
+  },
   methods: {
     sendMail() {
-      const form = this.form;
+      const form: Form = this.form;
       const sendMail = firebase.functions().httpsCallable("sendMail");
       sendMail({ form })
-        .then((response) => {
+        .then(() => {
           alert("お問い合わせありがとうございます。送信完了しました");
           this.form.name.contents = "";
           this.form.email.contents = "";
           this.form.message.contents = "";
           this.submitButton.disabled = true;
-          // alert(response);
-          // console.log(response);
         })
         .catch((error) => {
           alert("送信に失敗しました。時間をおいて再度お試しください");
         });
     },
+    validate() {
+      const validForm = document.querySelector("form:valid");
+      this.submitButton = document.querySelector(
+        "#submit"
+      ) as HTMLButtonElement;
+      this.submitButton.disabled = validForm === null;
+    },
   },
   mounted() {
-    /**
-     * フォーム全体の妥当性をチェックします
-     */
-    const validate = () => {
-      const validForm = document.querySelector("form:valid");
-      this.submitButton = document.querySelector("#submit");
-      this.submitButton.disabled = validForm === null;
-    };
-
-    // 初期読み込み時に実行
-    validate();
-
+    this.validate();
     // フォームに入力されたら、validate関数を実行
-    document.querySelectorAll("input,textarea").forEach((input) => {
-      input.addEventListener("input", validate);
-    });
+    document
+      .querySelectorAll<HTMLElement>("input,textarea")
+      .forEach((input) => {
+        input.addEventListener("input", this.validate);
+      });
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -23,23 +23,17 @@
 <script lang="ts">
 import Vue from "vue";
 import Modal from "./Modal.vue";
+import { Item } from "../models/item";
 
-//型の初期設定
-export type DataType = {
-  showModal: boolean;
-  postItem: any;
-  body: any;
-  items: any;
-};
 export default Vue.extend({
   components: {
     Modal,
   },
-  data(): DataType {
+  data() {
     return {
-      showModal: false,
-      postItem: "",
-      body: "",
+      showModal: false as boolean,
+      postItem: {} as Item,
+      body: {} as HTMLBodyElement,
       items: [
         {
           id: 0,
@@ -51,7 +45,7 @@ export default Vue.extend({
             "税制改正 2021年度 税金の<br class='sp_on'>仕組みは何が変わる？｜NHK",
           m_pic_skill: "HTML / CSS / JavaScript",
           m_site_url: "https://www3.nhk.or.jp/news/special/zeisei2021/",
-        },
+        } as Item,
         {
           id: 1,
           active: false,
@@ -62,7 +56,7 @@ export default Vue.extend({
             "2021年度予算案 <br class='sp_on'>一般会計の総額が過去最大に <br>おさえておきたい<br class='sp_on'>数字をチェック｜NHK",
           m_pic_skill: "HTML / CSS / JavaScript",
           m_site_url: "https://www3.nhk.or.jp/news/special/yosan2021/",
-        },
+        } as Item,
         {
           id: 2,
           active: false,
@@ -74,16 +68,16 @@ export default Vue.extend({
           m_pic_skill: "HTML / CSS / JavaScript",
           m_site_url:
             "https://www3.nhk.or.jp/news/special/shinsai-portal/10/questionnaire/",
-        },
+        } as Item,
       ],
     };
   },
   methods: {
-    openModal(item: any) {
+    openModal(item: Item) {
       this.postItem = item;
       this.showModal = true;
       this.postItem.active = true;
-      this.body = document.querySelector("body");
+      this.body = document.querySelector("body") as HTMLBodyElement;
       this.body.style.overflow = "hidden";
     },
     closeModal() {
