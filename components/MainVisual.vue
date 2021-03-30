@@ -5,7 +5,13 @@
     >
       <a href="" class="mainVisual__title__inner"><span>RS</span>design</a>
     </h1>
-    <a href="#about" class="mainVisual__scrollDown" id="scrollDown">Scroll</a>
+    <a
+      href="#about"
+      class="mainVisual__scrollDown"
+      id="scrollDown"
+      ref="scrollDown"
+      >Scroll</a
+    >
   </section>
 </template>
 
@@ -13,14 +19,26 @@
 import Vue from "vue";
 
 export default Vue.extend({
+  data() {
+    return {
+      a: {} as HTMLAnchorElement,
+      targetId: "" as string,
+      target: {} as HTMLElement,
+    };
+  },
+  methods: {
+    scrollEvent(): void {
+      this.a = this.$refs.scrollDown as HTMLAnchorElement;
+      this.a.addEventListener("click", (e: Event) => {
+        e.preventDefault();
+        this.targetId = this.a.hash;
+        this.target = document.querySelector(this.targetId) as HTMLElement;
+        this.target.scrollIntoView({ behavior: "smooth" });
+      });
+    },
+  },
   mounted() {
-    const a = document.querySelector("#scrollDown");
-    a?.addEventListener("click", (e: any) => {
-      e.preventDefault();
-      const targetId = e.target.hash;
-      const target = document.querySelector(targetId);
-      target.scrollIntoView({ behavior: "smooth" });
-    });
+    this.scrollEvent();
   },
 });
 </script>

@@ -73,17 +73,17 @@ export default Vue.extend({
     };
   },
   methods: {
-    openModal(item: Item) {
+    openModal(item: Item): string {
       this.postItem = item;
       this.showModal = true;
       this.postItem.active = true;
       this.body = document.querySelector("body") as HTMLBodyElement;
-      this.body.style.overflow = "hidden";
+      return (this.body.style.overflow = "hidden");
     },
-    closeModal() {
+    closeModal(): string {
       this.showModal = false;
       this.postItem.active = false;
-      this.body.style.overflow = "visible";
+      return (this.body.style.overflow = "visible");
     },
   },
 });

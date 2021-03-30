@@ -104,12 +104,12 @@ export default Vue.extend({
           alert("送信に失敗しました。時間をおいて再度お試しください");
         });
     },
-    validate() {
-      const validForm = document.querySelector("form:valid");
+    validate(): boolean {
+      const validForm = document.querySelector("form:valid") as HTMLFormElement;
       this.submitButton = document.querySelector(
         "#submit"
       ) as HTMLButtonElement;
-      this.submitButton.disabled = validForm === null;
+      return (this.submitButton.disabled = validForm === null);
     },
   },
   mounted() {

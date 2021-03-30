@@ -48,8 +48,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    discriminationMedia() {
-      this.window_width = window.innerWidth;
+    discriminationMedia(): number {
+      return (this.window_width = window.innerWidth);
     },
   },
   mounted() {
