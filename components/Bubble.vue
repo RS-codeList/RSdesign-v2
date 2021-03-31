@@ -22,8 +22,6 @@ interface Bubble {
   isFill: boolean;
 }
 
-let bubbles: Bubble[] = []; //バブルを格納する配列
-
 export default Vue.extend({
   data() {
     return {
@@ -39,6 +37,7 @@ export default Vue.extend({
       y: 0, //初期位置のy座標
       noise: 0,
       xShift: 0,
+      bubbles: [] as Bubble[], //バブルを格納する配列
     };
   },
   methods: {
@@ -57,7 +56,7 @@ export default Vue.extend({
         p.background(p.color(this.BG_COLOR));
         p.blendMode(p.SCREEN);
         this.removeOutBubbles(p); //バブルを消去するメソッド
-        while (bubbles.length < this.COUNT) {
+        while (this.bubbles.length < this.COUNT) {
           //バブルが上限に達していないか判定
           this.addBubble(p); //バブルを追加するメソッド
         }
@@ -77,7 +76,7 @@ export default Vue.extend({
       this.zDist = p.random() ** 3;
       this.x = p.random();
       this.y = 1.2;
-      bubbles.push({
+      this.bubbles.push({
         pos: { x: this.x, y: this.y },
         size: p.map(this.zDist, 0, 1, this.MINSIZE, this.MAXSIZE), //奥行の数値を基準に、バブルのサイズを再計算する
         speed: p.map(this.zDist, 0, 1, this.MINSPEED, this.MAXSPEED), //奥行の数値を基準に、バブルのスピードを再計算する
@@ -86,17 +85,19 @@ export default Vue.extend({
     },
     removeOutBubbles(p: p5) {
       //バブルを消去
-      bubbles = bubbles.filter((b) => b.pos.y * p.height + b.size >= 0);
+      this.bubbles = this.bubbles.filter(
+        (b) => b.pos.y * p.height + b.size >= 0
+      );
     },
     updateBubbles() {
       //バブルを上昇させる
-      bubbles.forEach((b) => {
+      this.bubbles.forEach((b) => {
         b.pos.y -= b.speed;
       });
     },
     drawBubbles(p: p5) {
       //設定されたバブルを描画
-      bubbles.forEach((b) => {
+      this.bubbles.forEach((b) => {
         this.noise = p.noise(b.pos.x * 20, b.pos.y * 20); //左右の振幅を指定
         this.xShift = p.map(this.noise, 0, 1, -15, 15); //振幅の数値を基準に、バブルの横移動を再計算
         const color = p.color(this.BUBBLE_COLOR);
