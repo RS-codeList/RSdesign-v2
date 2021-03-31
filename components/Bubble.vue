@@ -20,42 +20,50 @@ interface Bubble {
   speed: number;
   /** 塗りつぶすか？ */
   isFill: boolean;
+  /** クリックされたか？ */
+  clicked: boolean;
 }
 
 export default Vue.extend({
   data() {
     return {
-      COUNT: 40, //バブルの数
-      MINSIZE: 0.005, //バブルの最小サイズ（画面幅を1）
-      MAXSIZE: 0.2, //バブルの最大サイズ（画面幅を1）
-      MINSPEED: 0.00125, //バブルの最小速度（画面の高さを1として、1フレームごとに動く量の最小値）
-      MAXSPEED: 0.005, //バブルの最大速度（画面の高さを1として、1フレームごとに動く量の最大値）
-      BG_COLOR: "#171d21", //背景色
-      BUBBLE_COLOR: "#77acb5", //バブルの色
-      zDist: 0,
-      x: 0, //初期位置のx座標
-      y: 0, //初期位置のy座標
-      noise: 0,
-      xShift: 0,
+      COUNT: 40 as number, //バブルの数
+      MINSIZE: 0.005 as number, //バブルの最小サイズ（画面幅を1）
+      MAXSIZE: 0.2 as number, //バブルの最大サイズ（画面幅を1）
+      MINSPEED: 0.00125 as number, //バブルの最小速度（画面の高さを1として、1フレームごとに動く量の最小値）
+      MAXSPEED: 0.005 as number, //バブルの最大速度（画面の高さを1として、1フレームごとに動く量の最大値）
+      BG_COLOR: "#171d21" as string, //背景色
+      BUBBLE_COLOR: "#77acb5" as string, //バブルの色
+      zDist: 0 as number,
+      x: 0 as number, //初期位置のx座標
+      y: 0 as number, //初期位置のy座標
+      noise: 0 as number,
+      xShift: 0 as number,
       bubbles: [] as Bubble[], //バブルを格納する配列
+      canvas: {} as p5.Renderer,
+      main: {} as HTMLElement,
     };
   },
   methods: {
-    sketch(p: p5) {
+    sketch(p: p5): void {
       //インスタンスモードを使用
-      p.setup = () => {
+      p.setup = (): void => {
         //初期化
-        const canvas = p.createCanvas(p.windowWidth, p.windowHeight); //カンバスを生成
-        canvas.parent("p5Canvas");
-        const main = document.querySelector("main");
-        main?.remove(); //余計に生成されるmainタグを削除
+        this.canvas = p.createCanvas(
+          p.windowWidth,
+          p.displayHeight
+        ) as p5.Renderer; //pc版カンバスを生成
+        this.canvas.parent("p5Canvas");
+        this.main = document.querySelector("main") as HTMLElement;
+        this.main.remove(); //余計に生成されるmainタグを削除
       };
-      p.draw = () => {
+      p.draw = (): void => {
         //描画
         p.push(); //描画の開始
         p.background(p.color(this.BG_COLOR));
         p.blendMode(p.SCREEN);
         this.removeOutBubbles(p); //バブルを消去するメソッド
+        this.clickBubbles();
         while (this.bubbles.length < this.COUNT) {
           //バブルが上限に達していないか判定
           this.addBubble(p); //バブルを追加するメソッド
@@ -64,12 +72,12 @@ export default Vue.extend({
         this.drawBubbles(p); //バブルを描画するメソッド
         p.pop(); //描画の終了
       };
-      p.windowResized = () => {
+      p.windowResized = (): void => {
         //ウインドウサイズに合わせてカンバスサイズを変更
-        p.resizeCanvas(p.windowWidth, p.windowHeight);
+        p.resizeCanvas(p.windowWidth, p.displayHeight);
       };
     },
-    addBubble(p: p5) {
+    addBubble(p: p5): void {
       //バブルの設定を追加
       // 仮想的な奥行きを決める（0=奥 ... 1=手前）
       // 累乗することで奥の方が多めになるよう偏りをつける
@@ -81,21 +89,22 @@ export default Vue.extend({
         size: p.map(this.zDist, 0, 1, this.MINSIZE, this.MAXSIZE), //奥行の数値を基準に、バブルのサイズを再計算する
         speed: p.map(this.zDist, 0, 1, this.MINSPEED, this.MAXSPEED), //奥行の数値を基準に、バブルのスピードを再計算する
         isFill: Math.random() > 0.5,
+        clicked: false,
       });
     },
-    removeOutBubbles(p: p5) {
+    removeOutBubbles(p: p5): void {
       //バブルを消去
       this.bubbles = this.bubbles.filter(
         (b) => b.pos.y * p.height + b.size >= 0
       );
     },
-    updateBubbles() {
+    updateBubbles(): void {
       //バブルを上昇させる
       this.bubbles.forEach((b) => {
         b.pos.y -= b.speed;
       });
     },
-    drawBubbles(p: p5) {
+    drawBubbles(p: p5): void {
       //設定されたバブルを描画
       this.bubbles.forEach((b) => {
         this.noise = p.noise(b.pos.x * 20, b.pos.y * 20); //左右の振幅を指定
@@ -108,6 +117,14 @@ export default Vue.extend({
           b.pos.y * p.height, //円の描画の中心座標y
           b.size * p.width //円の直径
         );
+      });
+    },
+    clickBubbles(): void {
+      // this.bubbles = this.bubbles.filter((b) => p.mouseClicked)
+      this.bubbles.forEach((bubble) => {
+        bubble.addEventListener("click", () => {
+          bubble.clicked = true;
+        });
       });
     },
   },
