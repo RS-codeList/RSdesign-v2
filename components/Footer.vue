@@ -36,97 +36,6 @@
   </section>
 </template>
 
-// <script>
-// export default {
-//   data() {
-//     return {
-//       footer_height: 0,
-//       active_footer: false,
-//       footer: null,
-//       scroll_point: 0,
-//     };
-//   },
-//   methods: {
-//     resize_footer() {
-//       this.footer = document.querySelector(".footer");
-//       this.footer_height = this.footer.clientHeight;
-//       document.documentElement.style.setProperty(
-//         "--footerHeight",
-//         `${this.footer_height}px`
-//       );
-//       this.footer.classList.add("footer__off");
-//     },
-//   },
-//   mounted() {
-//     this.resize_footer();
-
-//     const paginations = document.querySelectorAll(".footer__nav__list__item a");
-//     paginations.forEach((pagination) => {
-//       pagination.addEventListener("click", (e) => {
-//         e.preventDefault();
-//         const targetId = e.target.hash;
-//         const target = document.querySelector(targetId);
-//         target.scrollIntoView({ behavior: "smooth" });
-//       });
-//     });
-
-//     this.scroll_point = 1 - (this.footer_height + 1) / window.innerHeight; //フッター判定回避用
-
-//     const options = {
-//       root: null, // ビューポートをルート要素とする
-//       rootMargin: "0%", // root内交差判定位置指定
-//       threshold: [this.scroll_point, 1], // 交差割合
-//     };
-
-//     const callback = (entries, observer) => {
-//       entries.forEach((entry) => {
-//         if (entry.isIntersecting) {
-//           // if (entry.intersectionRatio === 1) {
-//           // 要素が交差した際の動作
-//           // this.active_footer = !this.active_footer;//フラグの切り替え用
-//           // console.log(this.active_footer)
-//           // this.contact_top = window.pageYOffset;
-//           // this.active_footer = true;
-//           setTimeout(() => {
-//             this.footer.classList.add("footer__on");
-//           }, 1000);
-//           // this.footer.classList.toggle("footer__on");
-//           //   this.active_footer = true;
-//         } else {
-//           if (entry.intersectionRatio <= this.scroll_point) {
-//             this.footer.classList.remove("footer__on");
-//           }
-
-//           // if(this.scroll_point < this.contact_top){
-//           //   this.active_footer = false;
-//           //   this.footer.classList.remove("footer__on");
-//           // }
-//           // if(!entry.isIntersecting){
-//           //   this.active_footer = true;
-//           // }
-//           // else{
-//           //   this.active_footer = false;
-//           //   this.footer.classList.remove("footer__on");
-//           // }
-//           // 要素が交差から外れた際の動作
-//           //   this.footer.classList.remove("footer__on");
-//           //   this.active_footer = false;
-//         }
-//       });
-//     };
-//     const observer = new IntersectionObserver(callback, options);
-//     const contact = document.querySelector("#contact");
-//     observer.observe(contact);
-//     // const footerAnime = document.querySelector(".footer__off");
-//     // footerAnime.addEventListener("transitionend",(event)=>{
-//     //   event.target.style.overflow= this.active_footer ? "visible":"hidden";
-//     //   // console.log(event);
-//     // });
-//   },
-// };
-//
-</script>
-
 <script lang="ts">
 import Vue from "vue";
 
@@ -148,6 +57,8 @@ export default Vue.extend({
       targetId: "" as string,
       target: {} as HTMLElement,
       options: {} as Options,
+      contact: {} as HTMLElement,
+      observer: {} as IntersectionObserver,
     };
   },
   methods: {
@@ -174,13 +85,28 @@ export default Vue.extend({
         });
       });
     },
+    callback(entries: IntersectionObserverEntry[]): void {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          //交差してるか判定
+          setTimeout(() => {
+            this.footer.classList.add("footer__on");
+          }, 1000);
+        } else {
+          if (entry.intersectionRatio <= this.scroll_point) {
+            //交差範囲がフッターの高さより上か判定
+            this.footer.classList.remove("footer__on");
+          }
+        }
+      });
+    },
   },
   mounted() {
     this.resize_footer(); //フッター高さ調整
 
     this.scrollEvent();
 
-    this.scroll_point = 1 - (this.footer_height + 1) / window.innerHeight; //フッター判定回避用
+    this.scroll_point = 1 - (this.footer_height + 1) / window.innerHeight; //フッターの高さ分判定回避
 
     this.options = {
       root: null, // ビューポートをルート要素とする
@@ -188,50 +114,13 @@ export default Vue.extend({
       threshold: [this.scroll_point, 1], // 交差割合
     } as Options;
 
-    const callback = (entries: any, observer: any) => {
-      entries.forEach((entry: any) => {
-        if (entry.isIntersecting) {
-          // if (entry.intersectionRatio === 1) {
-          // 要素が交差した際の動作
-          // this.active_footer = !this.active_footer;//フラグの切り替え用
-          // console.log(this.active_footer)
-          // this.contact_top = window.pageYOffset;
-          // this.active_footer = true;
-          setTimeout(() => {
-            this.footer.classList.add("footer__on");
-          }, 1000);
-          // this.footer.classList.toggle("footer__on");
-          //   this.active_footer = true;
-        } else {
-          if (entry.intersectionRatio <= this.scroll_point) {
-            this.footer.classList.remove("footer__on");
-          }
+    this.observer = new IntersectionObserver(
+      this.callback,
+      this.options as IntersectionObserverInit
+    );
 
-          // if(this.scroll_point < this.contact_top){
-          //   this.active_footer = false;
-          //   this.footer.classList.remove("footer__on");
-          // }
-          // if(!entry.isIntersecting){
-          //   this.active_footer = true;
-          // }
-          // else{
-          //   this.active_footer = false;
-          //   this.footer.classList.remove("footer__on");
-          // }
-          // 要素が交差から外れた際の動作
-          //   this.footer.classList.remove("footer__on");
-          //   this.active_footer = false;
-        }
-      });
-    };
-    const observer = new IntersectionObserver(callback, this.options);
-    const contact = document.querySelector("#contact") as HTMLElement;
-    observer.observe(contact);
-    // const footerAnime = document.querySelector(".footer__off");
-    // footerAnime.addEventListener("transitionend",(event)=>{
-    //   event.target.style.overflow= this.active_footer ? "visible":"hidden";
-    //   // console.log(event);
-    // });
+    this.contact = document.querySelector("#contact") as HTMLElement;
+    this.observer.observe(this.contact);
   },
 });
 </script>
