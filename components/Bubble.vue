@@ -22,6 +22,12 @@ interface Bubble {
   isFill: boolean;
   /** クリックされたか？ */
   clicked: boolean;
+  /** 円の中央座標と直径 */
+  center: {
+    x: number;
+    y: number;
+    z: number;
+  };
 }
 
 export default Vue.extend({
@@ -36,7 +42,7 @@ export default Vue.extend({
       BUBBLE_COLOR: "#77acb5" as string, //バブルの色
       zDist: 0 as number,
       x: 0 as number, //初期位置のx座標
-      y: 0 as number, //初期位置のy座標
+      y: 1.2 as number, //初期位置のy座標
       noise: 0 as number,
       xShift: 0 as number,
       bubbles: [] as Bubble[], //バブルを格納する配列
@@ -49,10 +55,11 @@ export default Vue.extend({
       //インスタンスモードを使用
       p.setup = (): void => {
         //初期化
+        //カンバスの作成
         this.canvas = p.createCanvas(
           p.windowWidth,
           p.displayHeight
-        ) as p5.Renderer; //pc版カンバスを生成
+        ) as p5.Renderer;
         this.canvas.parent("p5Canvas");
         this.main = document.querySelector("main") as HTMLElement;
         this.main.remove(); //余計に生成されるmainタグを削除
@@ -63,7 +70,7 @@ export default Vue.extend({
         p.background(p.color(this.BG_COLOR));
         p.blendMode(p.SCREEN);
         this.removeOutBubbles(p); //バブルを消去するメソッド
-        this.clickBubbles();
+        this.clickBubbles(p);
         while (this.bubbles.length < this.COUNT) {
           //バブルが上限に達していないか判定
           this.addBubble(p); //バブルを追加するメソッド
@@ -83,19 +90,21 @@ export default Vue.extend({
       // 累乗することで奥の方が多めになるよう偏りをつける
       this.zDist = p.random() ** 3;
       this.x = p.random();
-      this.y = 1.2;
       this.bubbles.push({
         pos: { x: this.x, y: this.y },
         size: p.map(this.zDist, 0, 1, this.MINSIZE, this.MAXSIZE), //奥行の数値を基準に、バブルのサイズを再計算する
         speed: p.map(this.zDist, 0, 1, this.MINSPEED, this.MAXSPEED), //奥行の数値を基準に、バブルのスピードを再計算する
         isFill: Math.random() > 0.5,
         clicked: false,
+        center: { x: 0, y: 0, z: 0 }, //円の中央の座標と、直径
       });
     },
     removeOutBubbles(p: p5): void {
-      //バブルを消去
+      //クリックされたバブルを消去
+      this.bubbles = this.bubbles.filter((b) => b.clicked == false);
+      //画面外に出たバブルを消去
       this.bubbles = this.bubbles.filter(
-        (b) => b.pos.y * p.height + b.size >= 0
+        (b) => b.pos.y * p.height + b.center.z >= 0 //円の直径を足して、完全に画面外に出た時に消す
       );
     },
     updateBubbles(): void {
@@ -113,19 +122,27 @@ export default Vue.extend({
         p.stroke(color);
         b.isFill ? p.fill(color) : p.noFill();
         p.circle(
-          b.pos.x * p.width + this.xShift, //円の描画の中心座標x
-          b.pos.y * p.height, //円の描画の中心座標y
-          b.size * p.width //円の直径
+          (b.center.x = b.pos.x * p.width + this.xShift), //円の描画の中心座標x
+          (b.center.y = b.pos.y * p.height), //円の描画の中心座標y
+          (b.center.z = b.size * p.width) //円の直径
         );
       });
     },
-    clickBubbles(): void {
-      // this.bubbles = this.bubbles.filter((b) => p.mouseClicked)
-      this.bubbles.forEach((bubble) => {
-        bubble.addEventListener("click", () => {
-          bubble.clicked = true;
+    clickBubbles(p: p5): void {
+      p.mouseClicked = () => {
+        let mouseX = p.mouseX;
+        let mouseY = p.mouseY;
+        this.bubbles.forEach((bubble) => {
+          let r = bubble.center.z / 2; //円の半径
+          let coordinate = Math.sqrt(
+            Math.pow(mouseX - bubble.center.x, 2) +
+              Math.pow(mouseY - bubble.center.y, 2)
+          );
+          if (coordinate <= r) {
+            bubble.clicked = true;
+          }
         });
-      });
+      };
     },
   },
   mounted() {
