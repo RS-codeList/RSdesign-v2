@@ -69,6 +69,18 @@ export default Vue.extend({
           m_site_url:
             "https://www3.nhk.or.jp/news/special/shinsai-portal/10/questionnaire/",
         } as Item,
+        {
+          id: 3,
+          active: false,
+          m_thum: "still/og_image-4.jpg",
+          m_pic_pc: "still/japan-us_s.jpg",
+          m_pic_sp: "still/japan-us_s_sp.jpg",
+          m_pic_title:
+            "日米首脳会談 <br class='sp_on'>最新ニュース一覧 <br>菅首相 バイデン大統領<br class='sp_on'>｜NHK NEWS WEB",
+          m_pic_skill: "HTML / CSS / JavaScript",
+          m_site_url:
+            "https://www3.nhk.or.jp/news/special/japan-us_summit-meeting_202104/",
+        } as Item,
       ],
     };
   },
