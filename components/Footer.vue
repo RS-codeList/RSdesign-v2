@@ -102,7 +102,7 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.resize_footer(); //フッター高さ調整
+    // this.resize_footer(); //フッター高さ調整
 
     this.scrollEvent();
 
@@ -120,7 +120,7 @@ export default Vue.extend({
     );
 
     this.contact = document.querySelector("#contact") as HTMLElement;
-    this.observer.observe(this.contact);
+    // this.observer.observe(this.contact);
   },
 });
 </script>
@@ -200,6 +200,8 @@ export default Vue.extend({
     &__item {
       font-size: 1.6rem;
       margin: 0 0.8rem;
+      pointer-events: none;
+      cursor: not-allowed;
       @include media(md) {
         font-size: 24px;
         margin: 0 18px;
